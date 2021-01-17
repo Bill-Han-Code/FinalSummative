@@ -1,0 +1,323 @@
+#Author: Bill Han
+#Coding class
+#BMI and Body Fat Percentage Calculator
+#October-January
+
+
+#Tkinter window settings
+import tkinter as tk
+from PIL import ImageTk, Image
+
+root = tk.Tk()
+#Window Title
+root.title('Calculate your BMI and Body Mass Index')
+#Window Size
+root.geometry('1440x855')
+#Window Colour
+root.configure(bg='blue')
+#Window Adjustability
+root.resizable(False, False) 
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the title for the program
+#Title Customizations
+text1 = tk.Label(root,
+#Background Colour
+bg="orange",
+#Text Colour
+fg="black", 
+#Title Height
+height=3, 
+#Title Width
+width=50,
+#Size and Font
+font="Helvetica 34 bold", 
+#Title name
+text="BMI AND BODY FAT PERCENTAGE CALCULATOR" )
+#Placement
+text1.grid(row=0, column=1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the large paragraph in the bottom right of the window
+#This is paragraph is used to motivate its users
+#These are the text customizations including colour, font, size, and wraplength
+text2 = tk.Label(root,
+wraplength=400,
+ bg="orange",
+ fg="black", 
+ height=21, 
+ width=50,
+ font="Helvetica 16", 
+ text="During this difficult time with the virus and not being able to go outside as much. "
+	  "Many have begun to lose their fitness routines and habits. It's important to make sure to exercise regularly "
+	  "whether that be at-home workouts or working out outside. Especially during this time, it can be extremely "
+	  "difficult to maintain or even create motivation which is why it is important to set some sort of goal for "
+	  "yourself that allows you to become a better you. That doesn’t just include physical health as exercising can "
+	  "also improve mental health. Goals can include reaching a certain body mass index or body fat percentage. "
+	  "The AVERAGE body fat percentage for men is 8%-19% while the AVERAGE body mass index for women is 21%-33%. "
+	  "The AVERAGE body mass index for both men and women is 19-25. Now keep in mind that these are simply AVERAGES "
+	  "and not to be meant as an unrealistic goal for some. The important thing is that we all start off somewhere "
+	  "whether that be slowly taking small steps or setting higher goals for yourself because you are capable of it. "
+	  "At the end of the day, progress is all that matters and as long as you are improving yourself everyday, that’s "
+	  "what counts." )
+
+#This is the placement for the text
+text2.grid(row=11, column=1, rowspan=30, columnspan=3, sticky="e")
+
+#These are the the weights of the second and third column
+root.columnconfigure(2, weight=1)
+root.columnconfigure(3, weight=1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the picture of the treadmill in the top right of the window
+#These are the customizations for the picture including border colour, size, and placement
+image1 = Image.open("treadmill.png")
+image1 = image1.resize((250, 250), Image.ANTIALIAS)
+
+test = ImageTk.PhotoImage(image1)
+
+label1 = tk.Label(root, bg="orange", image=test)
+label1.image = test
+label1.grid (row=1, column=1, rowspan=10, columnspan=2, sticky="e")
+
+def b1command():
+	print ("executing b1 command")
+	mycanvas.create_image(20, 20, anchor='nw', image=tkimage1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the first formula in the program 
+#This formula calculates the BMI of the user using two measurements
+def enter():
+	formula1 = str(round(float(weight.get()) / (float(height.get()) * float(height.get())) ))
+	label1result.config(text="YOUR BMI IS " + formula1)
+
+#This is the first label which asks for the users height
+#These are also the customizations of the label
+label1 = tk.Label(root, font="Pacifico 14 bold italic", bg="orange", text="What is your height in meters?")
+label1.grid(row=1, column=0)
+
+#This defines "height"
+height = tk.StringVar()
+
+#This is the first entry space which allows the user to input a number
+entry1 = tk.Entry(root, font="Pacifico 14 bold italic", textvariable=height)
+entry1.grid(row=2, column=0)
+
+#This is the second label which asks for the users weight
+#These are also the customizations of the label
+label2 = tk.Label(root, font="Pacifico 14 bold italic", bg="orange", text="What is your weight in kilograms?")
+label2.grid(row=3, column=0)
+
+#This defines "weight"
+weight = tk.StringVar()
+
+#This is the second entry space which allows the user to input a number
+entry2 = tk.Entry(root, font="Pacifico 14 bold italic", textvariable=weight)
+entry2.grid(row=4, column=0)
+
+#This is the first button which the user can click on
+button1 = tk.Button(root, text="GET BMI", command=enter)
+button1.grid(row=5, column=1)
+
+#This is the response when the user clicks on the first button
+label1result = tk.Button(root, text="________________", command=enter)
+label1result.grid(row=6, column=1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the third label which askes for the users sex
+label3 = tk.Label(root, font="Pacifico 14 bold italic", bg="orange", text="What is your sex?")
+label3.grid(row=7, column=0)
+
+#These are the options which the user can click on
+OptionList = [
+"MALE",
+"FEMALE"
+] 
+variable = tk.StringVar(root)
+variable.set(OptionList[0])
+
+#This is the location of the drop down menu
+opt = tk.OptionMenu(root, variable, *OptionList)
+opt.config(font=('Helvetica', 13))
+opt.grid(row=8, column=0)
+
+#This is where a confirmation response will show once the user clicks on an option
+labelTest = tk.Label(text="____________________")
+labelTest.grid(row=9, column=1)
+def callback(*args):
+	labelTest.configure(text="YOUR SEX IS {}".format(variable.get()))
+variable.trace("w", callback)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the fourth label which asks the user for their age
+label4 = tk.Label(root, font="Pacifico 14 bold italic", bg="orange", text="What is your age?")
+label4.grid(row=10, column=0)
+
+#This defines "age"
+age = tk.StringVar()
+
+#This is the fourth entry space which allows the user to input their age
+entry4 = tk.Entry(root, font="Pacifico 14 bold italic", textvariable=age)
+entry4.grid(row=11, column=0)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the second formula depending on the sex of the user
+#These formulas will determine the body fat percentage of the user
+def enter2():
+	if format(variable.get()) == 'MALE':
+		formula1 = round(float(weight.get()) / (float(height.get())**2))
+		BMI = round(formula1)
+		formula2 = str(round((1.20 * BMI) + (0.23 * int(age.get())) - 16.2))
+		label2result.config(text="YOUR BODY FAT PERCENTAGE IS " + formula2)
+	elif format(variable.get()) == 'FEMALE':
+		formula1 = round(float(weight.get()) / (float(height.get()))**2)
+		BMI = round(formula1)
+		formula3 = str(round((1.20 * BMI) + (0.23 * int(age.get())) - 5.4))
+		label2result.config(text="YOUR BODY FAT PERCENTAGE IS " + formula3)
+	else:
+		print("Please enter either male or female")
+
+#This is the second button that allows the user to click on it
+button2 = tk.Button(root, text="GET BODY FAT PERCENTAGE", command=enter2)
+button2.grid(row=12, column=1)
+
+#This is the response given to the user once they click on it
+label2result = tk.Button(root, text="______________________________________", command=enter2)
+label2result.grid(row=13, column=1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the fifth label which asks the user what their ideal BMI is
+label5 = tk.Label(root, 
+	font="Pacifico 14 bold italic", 
+	bg="orange", 
+	wraplength=225,
+	text="What is your ideal Body Mass Index?")
+label5.grid(row=14, column=0)
+
+#This defines "goal1"
+goal1 = tk.StringVar()
+
+#This is the fifth entry space which allows the user to enter their ideal BMI
+entry5 = tk.Entry(root, font="Pacifico 14 bold italic", textvariable=goal1)
+entry5.grid(row=15, column=0)
+
+#This is the third formula which calculates whether or not the user achieved their BMI goal
+def enter3():
+	formula1 = round(float(weight.get()) / (float(height.get()) ** 2))
+	BMI = round(formula1)
+	if BMI <= int(goal1.get()):
+		label3result.config(text="GREAT JOB")
+	elif BMI >= int(goal1.get()):
+		label3result.config(text="KEEP GOING")
+	else:
+		print("Please enter a real goal")
+
+#This is the third button which allows the user to click on it
+button3 = tk.Button(root, text="GET RESPONSE", command=enter3)
+button3.grid(row=16, column=1)
+
+#This is the third response once the user clicks on the button
+label3result = tk.Button(root, text="______________")
+label3result.grid(row=17, column=1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the sixth label that asks the user what their ideal body fat percentage is
+label6 = tk.Label(root, font="Pacifico 14 bold italic", bg="orange", wraplength=250,
+	text="What is your ideal body fat percentage?")
+label6.grid(row=18, column=0)
+
+#This defines goal2
+goal2 = tk.StringVar()
+
+#This is the sixth entry space that allows the user to input their ideal body fat percentage
+entry6 = tk.Entry(root, font="Pacifico 14 bold italic", textvariable=goal2)
+entry6.grid(row=19, column=0)
+
+#This is the fourth formula that calculates whether or not the user reached their body fat percentage goal
+def enter4():
+	formula1 = round(float(weight.get()) / (float(height.get()) ** 2))
+	BMI = round(formula1)
+	formula2 = str(round((1.20 * BMI) + (0.23 * int(age.get())) - 16.2))
+	if formula2 <= goal2.get():
+		label4result.config(text="GREAT JOB")
+	elif formula2 >= goal2.get():
+		label4result.config(text="KEEP GOING")
+	else:
+		print("Please enter a real goal")
+
+#This is the fourth button that allows the user to click on it
+button4 = tk.Button(root, text="GET RESPONSE", command=enter4)
+button4.grid(row=20, column=1)
+
+#This is the fourth response that is given once the user clicks on the button
+label4result = tk.Button(root, text="_________________")
+label4result.grid(row=21, column=1)
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+
+#This is the seventh label that asked the user how satisfied they are with their journey so far
+label7 = tk.Label(root, 
+	font="Pacifico 14 bold italic", 
+	bg="orange", 
+	wraplength=225,
+	text="On a scale of 1-10, how satisfied are you with your progress? ")
+
+#This is the placement for the seventh label
+label7.grid(row=22, column=0)
+
+#This defines "satisfication"
+satisfication = tk.StringVar()
+
+#This is the seventh entry space that allows the user to input their satisfication level
+entry7 = tk.Entry(root, font="Pacifico 14 bold italic", textvariable=satisfication)
+entry7.grid(row=23, column=0)
+
+#This is the fifth formula that determines whether or not the user gets a positive response or a motivational response
+def enter5():
+	if int(satisfication.get()) >= 6:
+		label5result.config(text="GREAT TO HEAR")
+	elif int(satisfication.get()) <= 5:
+		label5result.config(text="KEEP WORKING HARDER")
+	else:
+		label5result.config(text="Please enter a real number")
+
+#This is the fifth button that allows the user to click on it 
+button5 = tk.Button(root, text="GET FEEDBACK", command=enter5)
+button5.grid(row=24, column=1)
+
+#This is the fifth response that is given once the user clicks on the button
+label5result = tk.Button(root, text="___________________________")
+label5result.grid(row=25, column=1)
+
+
+
+root.mainloop()
